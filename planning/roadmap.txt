@@ -1,0 +1,66 @@
+Proposed Features:
+
+User Registration and Authentication: Using express-session and cookies.
+
+Sound Recording: A feature to record and upload sound snippets.
+
+Guess Mechanism: Users can listen to sounds and input their guesses. The app would provide immediate feedback if the guess was correct or not.
+
+Scoreboard: A leaderboard that ranks players based on correct guesses.
+
+Profile Pages: Where users can view their recorded sounds, scores, and rankings.
+
+Sound Categories: Option for users to select categories for the sounds they record (e.g., nature, musical instruments, daily life, etc.)
+
+Technology Stack:
+
+Backend: Node.js and Express.js (RESTful API)
+
+Frontend Templating: Handlebars.js
+
+Database: MySQL with Sequelize ORM
+
+Authentication: express-session and cookies
+
+Deployment: Heroku
+
+New Technology: Consider integrating a package like multer for handling audio file uploads or Web Audio API for more advanced audio processing.
+
+Project Structure (MVC Paradigm):
+
+Models: User, SoundClip, Scoreboard, Categories
+
+Views: Homepage, Dashboard, Login/Signup, Profile, Game Page, Scoreboard Page
+
+Controllers: UserRoutes, SoundRoutes, ScoreRoutes
+
+Routes:
+
+GET:
+/: Landing page.
+/dashboard: Main game dashboard.
+/login: Login page.
+/signup: Signup page.
+/profile/:userId: Display user's profile.
+/sound/:soundId: Play a specific sound for guessing.
+/scoreboard: Display top players.
+POST:
+/signup: Register a new user.
+/login: Authenticate and log in a user.
+/sound: Upload a new sound clip.
+/guess: Submit a guess for a sound clip.
+Security:
+
+Store API keys, connection strings, and any sensitive information using environment variables.
+
+Sanitize user input to protect against SQL injection.
+
+Ensure uploaded sound files are properly validated and sanitized to prevent malicious uploads.
+
+UI/UX:
+
+Polished UI: Use a modern CSS framework like Bootstrap or TailwindCSS.
+
+Responsiveness: Ensure the application looks and functions well on various screen sizes.
+
+Interactivity: Use JavaScript to make the UI responsive to user actions in real-time (e.g., playing sounds, showing immediate feedback on guesses).
