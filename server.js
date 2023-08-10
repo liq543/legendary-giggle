@@ -1,7 +1,6 @@
-// server.js
 const express = require('express');
 const session = require('express-session');
-const handlebars = require('express-handlebars');
+const exphbs = require('express-handlebars');  // <-- Changed the name to exphbs
 const userRoutes = require('./controllers/userRoutes');
 require('dotenv').config();
 const secretKey = process.env.SECRET_KEY;
@@ -16,7 +15,9 @@ app.use(session({
 }));
 
 app.use('/users', userRoutes);
-app.engine('handlebars', handlebars({ defaultLayout: 'main' }));
+
+// Use exphbs to setup the handlebars engine
+app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 const PORT = process.env.PORT || 3000;
