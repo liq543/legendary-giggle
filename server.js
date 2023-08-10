@@ -14,6 +14,7 @@ app.use(session({
     saveUninitialized: true,
 }));
 
+app.use(express.static('public')); 
 app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
