@@ -15,6 +15,7 @@ app.use(session({
 }));
 
 app.use('/users', userRoutes);
+
 app.get('/', (req, res) => {
     res.render('layouts/main');  // This assumes you have a main.handlebars in your views directory.
 });
