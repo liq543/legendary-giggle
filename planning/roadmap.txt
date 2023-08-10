@@ -63,10 +63,4 @@ Polished UI: Use a modern CSS framework like Bootstrap or TailwindCSS.
 
 Responsiveness: Ensure the application looks and functions well on various screen sizes.
 
-Interactivity: Use JavaScript to make the UI responsive to user actions in real-time (e.g., playing sounds, showing immediate feedback on guesses). (edited)
-[11:45 PM]
-As a bonus goal ( if we somehow have time ) we could add adjective descriptions to the prompts that players could also provide this could be in the form of a bonus round or seperate game mode
-[11:45 PM]
-I just thought of the prompt being "gay bees" and it made me laugh really hard but maybe thats a bit too cards against humanity
-[11:45 PM]
-but you get the point could potentially make it funnier
+Interactivity: Use JavaScript to make the UI responsive to user actions in real-time (e.g., playing sounds, showing immediate feedback on guesses).
