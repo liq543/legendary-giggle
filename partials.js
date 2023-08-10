@@ -36,4 +36,9 @@ $http(config)
       }
   });
 
+<<<<<<< HEAD
   //dsh fiuauhcuahi dvvf 
+=======
+  //dsh fiuauhcuahi dvvf 
+  
+>>>>>>> 75f7591397cba1eb851ba44582670e58750616d6
