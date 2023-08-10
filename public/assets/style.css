@@ -1,3 +1,4 @@
+/* css for universal and body */
 *{
     padding: 0;
     margin: 0;
@@ -8,6 +9,7 @@
 body{
     background: #e3e9f7;
 }
+/* this css if for the nav bar and to make the nav bar responsive */
 .logo{
     width:120px;
     margin-top: 8px;
@@ -99,4 +101,10 @@ nav ul li a:hover{
     .hamburger{
         display: block;
     }
+}
+/* this is in order to render the canvas into the screen */
+canvas{
+    background: #eee;
+    height: 500px;
+    width: 500px;
 }
