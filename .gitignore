@@ -1,4 +1,4 @@
 /node_modules
 .env
 # Ignore all files in public/audio
-
+/public/audio/*
