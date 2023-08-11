@@ -14,7 +14,7 @@ document.querySelector('.signup-form').addEventListener('submit', async (e) => {
     const data = await response.json();
   
     if (data.success) {
-        window.location.href = '/registersuccess';  // Redirect to login page or any other page
+        window.location.href = '/dashboard';  // Redirect to login page or any other page
     } else {
         alert(data.message);
     }
