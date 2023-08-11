@@ -22,6 +22,10 @@ router.post('/register', async (req, res) => {
         console.log("Attempting registration with data:", req.body); // Diagnostic log for incoming registration data
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const emailRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(req.body.email)){
+            return res.status(400).json({sucess: false, message: 'Invalid email format'});
+        }
         const newUser = {
             name: req.body.name,
             email: req.body.email,
