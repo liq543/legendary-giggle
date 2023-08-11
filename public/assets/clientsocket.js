@@ -1,5 +1,10 @@
 const socket = io.connect(window.location.origin);
-
+let currentRoomCode = null;
+function displayRoomCodeMessage(roomCode) {
+    const messageElement = document.createElement("p");
+    messageElement.textContent = `Room created ${roomCode}. Please join it now to play`;
+    document.body.appendChild(messageElement);
+}
 // Function to create a room
 function createRoom() {
     socket.emit('createRoom');
@@ -18,7 +23,8 @@ function pressButton(roomCode) {
 // Listeners
 socket.on('roomCreated', (roomCode) => {
     console.log('Room Created:', roomCode);
-    // Update your UI accordingly
+    currentRoomCode = roomCode; // Store the room code in the global variable
+    displayRoomCodeMessage(roomCode); // Display the message on the page
 });
 
 socket.on('joinedRoom', (roomCode) => {
