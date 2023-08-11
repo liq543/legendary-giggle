@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models');
-require('dotenv').config();
 
 router.get('/login', (req, res) => {
     res.render('login');
