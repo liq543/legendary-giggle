@@ -5,8 +5,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 </head>
 <body>
-  <h1>Scoreboard</h1>
+    <h1>Scoreboard</h1>
   <ul id="score-list"></ul>
+  <h2><span id="p1-finalScore">()</span> to <span id="p2-finalScore">()</span></h2>
+    <button id="p1">Player One</button>
+    <button id="p2">Player Two</button>
+    <button id="reset">Play Again</button>
 
   <script id="score-template" type="text/x-handlebars-template">
     {{#each scores}}
@@ -19,13 +23,14 @@
       scores: [
         { name: "Player 1", score: () },
         { name: "Player 2", score: () },
-        { name: "Player 3", score: () },
       ],
     };
 
     const scoreTemplate = document.getElementById("score-template").innerHTML;
     const compiledTemplate = Handlebars.compile(scoreTemplate);
     const scoreList = document.getElementById("score-list");
+    const document.getElementById("p1-finalScore")
+    const document.getElementById("p2-finalScore")
 
     scoreList.innerHTML = compiledTemplate(scoresData);
     <script src="/scoreRoutes.js"></script>
