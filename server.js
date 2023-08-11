@@ -3,6 +3,8 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const userRoutes = require('./routes/userRoutes');
 const soundRoutes = require('./routes/soundRoutes'); // Import the new module
+const http = require('http');
+const socketIo = require('socket.io');
 require('dotenv').config();
 
 const secretKey = process.env.SECRET_KEY;
