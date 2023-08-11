@@ -1,7 +1,7 @@
 var config = {
   method: 'POST',
-  url: http://,
-  headers: { 'Content-Type': 'vyj yfj jy' },
+  url: http:// ,
+  headers: { 'Login': 'register' },
   data: 'grant_type=password&username=' + username + '&password=' + password,
 };
 
@@ -31,10 +31,45 @@ $http(config)
           if (data.error_description) {
               failedCallback(data.error_description);
           } else {
-              failedCallback('Unable to contact server; please, try again later.');
+              failedCallback('Please, try again later.');
           }
       }
   });
 
-  //dsh fiuauhcuahi dvvf 
-//barcncsacbasch  sfdv fdgs gvs d
+ 
+[HttpPost]
+        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Membership.ValidateUser(model.UserName, model.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                      && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return JavaScript("location.href ='" + returnUrl + "';");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            if (Request.IsAjaxRequest())
+            {
+                // If an ajax request was made return only the validation errors 
+                // instead of the whole page
+                return PartialView("LogIn2"); 
+            }
+            else
+            {
+                return View();
+            }
+        }
