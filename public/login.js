@@ -1,25 +1,42 @@
-const loginHandler = async (event) => {
-    event.preventDefault();
-  
+document.querySelector('.login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    const email = document.querySelector('#email-login').value.trim();
-    const password = document.querySelector('#password-login').value.trim();
-  
-    if (email && password) {
-      const response = await fetch('/api/users/login', {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: { 'Content-Type': 'application/json' },
-      });
-  
-      if (response.ok) {
-        document.location.replace('/dashboard');
-      } else {
-        alert(response.statusText);
-      }
-    }
-  };
+  const email = document.getElementById('email-login').value;
+  const password = document.getElementById('password-login').value;
 
-  document
-  .querySelector('.login-form')
-  .addEventListener('submit', loginHandler);
+  const response = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+  });
+
+  const data = await response.json();
+
+  if (data.success) {
+      window.location.href = '/dashboard';  // Redirect to dashboard or any other page
+  } else {
+      alert(data.message);
+  }
+});
+
+document.querySelector('.signup-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('name-signup').value;
+  const email = document.getElementById('email-signup').value;
+  const password = document.getElementById('password-signup').value;
+
+  const response = await fetch('/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+  });
+
+  const data = await response.json();
+
+  if (data.success) {
+      window.location.href = '/login';  // Redirect to login page or any other page
+  } else {
+      alert(data.message);
+  }
+});

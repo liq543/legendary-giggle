@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
-const userRoutes = require('./controllers/userRoutes');
+const userRoutes = require('./routes/userRoutes');
 const soundRoutes = require('./routes/soundRoutes'); // Import the new module
 require('dotenv').config();
 
@@ -18,7 +18,7 @@ app.use(session({
 }));
 
 app.use(express.static('public')); 
-app.use('/users', userRoutes);
+app.use('/', userRoutes);
 app.use('/', soundRoutes);  // Use the sound routes module
 
 // Use exphbs to setup the handlebars engine
