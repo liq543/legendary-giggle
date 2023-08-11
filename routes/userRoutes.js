@@ -19,21 +19,29 @@ router.get('/register', (req, res) => {
 // Registration Route
 router.post('/register', async (req, res) => {
     try {
+        console.log("Attempting registration with data:", req.body); // Diagnostic log for incoming registration data
+
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const newUser = {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword
         };
+
+        console.log("Hashed password and constructed new user object:", newUser); // Diagnostic log for constructed user
         
         // Assuming User is your Sequelize model
-        await User.create(newUser);
+        const createdUser = await User.create(newUser); 
+        console.log("User created successfully:", createdUser.toJSON()); // Diagnostic log for created user
+
         res.json({ success: true, message: 'Registration successful' });
 
     } catch (error) {
+        console.error("Error during registration:", error); // Diagnostic log for errors during registration
         res.status(500).json({ success: false, message: 'Registration failed' });
     }
 });
+
 
 // Login Route
 router.post('/login', async (req, res) => {
