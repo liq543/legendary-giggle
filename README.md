@@ -23,7 +23,7 @@ A real-time multiplayer web game where one user records a sound based on a promp
 
 1. Clone the repository:
 ```bash
-git clone [your-repository-link]
+git clone https://github.com/liq543/legendary-giggle.git
 ```
 
 2. Install the dependencies:
