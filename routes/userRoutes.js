@@ -41,20 +41,24 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ where: { email: req.body.email } });
 
         if (!user) {
+            console.log("User not found with email:", req.body.email); // Diagnostic log
             return res.status(400).json({ success: false, message: 'Invalid credentials' });
         }
 
         const isMatch = await bcrypt.compare(req.body.password, user.password);
 
         if (!isMatch) {
+            console.log("Password mismatch for user:", req.body.email); // Diagnostic log
             return res.status(400).json({ success: false, message: 'Invalid credentials' });
         }
 
         // If authenticated:
         req.session.username = user.name;  // Storing username in session
+        console.log("User", user.name, "logged in successfully!"); // Diagnostic log
         res.json({ success: true, message: 'Login successful' });
 
     } catch (error) {
+        console.error("Error during login:", error); // Diagnostic log
         res.status(500).json({ success: false, message: 'Login failed' });
     }
 });
