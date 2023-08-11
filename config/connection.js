@@ -7,7 +7,7 @@ let sequelize;
 if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'mysql',
-    logging: false, // Optional: Set to true if you want to see SQL queries in the logs
+    logging: true, // Optional: Set to false if you dont want to see logs
   });
 } else {
   // Otherwise, use local .env configurations
