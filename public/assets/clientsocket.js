@@ -1,7 +1,15 @@
 const socket = io.connect(window.location.origin);
 let currentRoomCode = null;
 function displayRoomCodeMessage(roomCode) {
+    // Check for and remove the existing message element if it exists
+    const existingMessage = document.getElementById("roomCodeMessage");
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+
+    // Create a new message element and append it to the body
     const messageElement = document.createElement("p");
+    messageElement.id = "roomCodeMessage"; // Assign an id for future reference
     messageElement.textContent = `Room created ${roomCode}. Please join it now to play`;
     document.body.appendChild(messageElement);
 }
