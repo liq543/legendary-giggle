@@ -1,4 +1,4 @@
-const socket = io.connect('legendary-giggle-4c67ca9ca408.herokuapp.com');
+const socket = io.connect(window.location.origin);
 
 // Function to create a room
 function createRoom() {
