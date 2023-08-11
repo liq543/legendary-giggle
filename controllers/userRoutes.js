@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models');
+const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 router.get('/login', (req, res) => {
     res.render('login');
@@ -10,16 +12,15 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-// Add more routes as required
-
-module.exports = router;
-
 router.post('/signup', async (req, res) => {
     try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10); 
+
         const newUser = await User.create({
             username: req.body.username,
-            password: req.body.password, // TODO: Add hashing before storing password
+            password: hashedPassword,
         });
+
         req.session.user = newUser;
         res.redirect('/dashboard');
     } catch (err) {
@@ -27,4 +28,4 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// Add login route and others as required
+module.exports = router;
