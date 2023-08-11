@@ -1,4 +1,4 @@
-const socket = io.connect('http://162.206.108.155:3000');
+const socket = io.connect('legendary-giggle-4c67ca9ca408.herokuapp.com');
 
 // Function to create a room
 function createRoom() {
