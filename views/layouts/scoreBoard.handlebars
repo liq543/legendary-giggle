@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scoreboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+</head>
+<body>
+  <h1>Scoreboard</h1>
+  <ul id="score-list"></ul>
+
+  <script id="score-template" type="text/x-handlebars-template">
+    {{#each scores}}
+    <li>{{name}} - {{score}}</li>
+    {{/each}}
+  </script>
+
+  <script>
+    const scoresData = {
+      scores: [
+        { name: "Player 1", score: () },
+        { name: "Player 2", score: () },
+        { name: "Player 3", score: () },
+      ],
+    };
+
+    const scoreTemplate = document.getElementById("score-template").innerHTML;
+    const compiledTemplate = Handlebars.compile(scoreTemplate);
+    const scoreList = document.getElementById("score-list");
+
+    scoreList.innerHTML = compiledTemplate(scoresData);
+    <script src="/scoreRoutes.js"></script>
+    </script>
+</body>
+</html>
