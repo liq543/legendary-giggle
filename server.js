@@ -2,9 +2,9 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const userRoutes = require('./routes/userRoutes');
-const soundRoutes = require('./routes/soundRoutes'); // Import the new module
-const http = require('http');
-const socketIo = require('socket.io');
+const soundRoutes = require('./routes/soundRoutes');
+const { initializeSocket } = require('./serverjs/socketLogic');  // Import socket logic
+const http = require('http');  // Import the http module
 require('dotenv').config();
 
 const secretKey = process.env.SECRET_KEY;
@@ -21,7 +21,10 @@ app.use(session({
 
 app.use(express.static('public')); 
 app.use('/', userRoutes);
-app.use('/', soundRoutes);  // Use the sound routes module
+app.use('/', soundRoutes);
+app.use('/sockettest', (req, res) => {
+    res.render('sockettest');
+});
 
 // Use exphbs to setup the handlebars engine
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
@@ -33,6 +36,10 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+const server = http.createServer(app);  // Create server using http
+
+initializeSocket(server);  // Pass the server to initialize socket
+
+server.listen(PORT, () => {  // Change this line to use the created server
     console.log(`Server started on port ${PORT}`);
 });
