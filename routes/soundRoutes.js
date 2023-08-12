@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const Sound = require('../models/Sound');
-const { authenticateToken } = require('./routehelper'); // Adjust the path to your userRoutes.js file
+const { authenticateToken } = require('./routehelper'); 
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -27,7 +27,7 @@ router.post("/upload", upload.single("audio"), authenticateToken, async (req, re
     // Save sound metadta to the database
 
 try {
-    const newSound = await Sound.create({
+    await Sound.create({
         userId: req.session.userinfo.id, // Assuming you have the user info in the req object
         categoryId: 4, // PLACEHOLDER LOL HAHA XD :3
         soundFilePath: req.file.path,
