@@ -3,7 +3,7 @@ const { Sound } = require('../models');
 const soundData = [
     {
         userId: 4,
-        categoryId: 1,
+        categoryId: 4,
         soundFilePath: 'path/to/sound1.mp3',
         wordOrPhrase: 'elephant'
     },
