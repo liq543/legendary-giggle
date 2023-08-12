@@ -45,12 +45,25 @@ socket.on('roomCreated', (roomCode) => {
 
 socket.on('joinedRoom', (roomCode) => {
     console.log('Joined Room:', roomCode);
-    // Update your UI accordingly
+
+    const centerContainer = document.getElementById("center-container");
+    if (centerContainer) {
+        centerContainer.remove();
+    }
+
+    const waitingMessage = document.createElement("p");
+    waitingMessage.id = "waitingMessage";
+    waitingMessage.textContent = "Waiting for the other player to join...";
+    const mainContainer = document.querySelector(".main-container");
+    mainContainer.appendChild(waitingMessage);
 });
 
 socket.on('playersReady', () => {
     console.log('Both players are ready!');
-    // Display the 'OK' button
+    const waitingMessage = document.getElementById("waitingMessage");
+    if (waitingMessage) {
+        waitingMessage.textContent = "Both players are ready!";
+    }
 });
 
 socket.on('otherUserPressed', () => {
