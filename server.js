@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const userRoutes = require('./routes/userRoutes');
+const gameRoutes = require('./routes/gameRoutes');
 const soundRoutes = require('./routes/soundRoutes');
 const { initializeSocket } = require('./serverjs/socketLogic');  // Import socket logic
 const http = require('http');  // Import the http module
@@ -22,6 +23,7 @@ app.use(session({
 app.use(express.static('public')); 
 app.use('/', userRoutes);
 app.use('/', soundRoutes);
+app.use('/', gameRoutes);
 app.use('/sockettest', (req, res) => {
     res.render('sockettest');
 });
