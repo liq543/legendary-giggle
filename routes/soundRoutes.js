@@ -28,8 +28,8 @@ router.post("/upload", upload.single("audio"), authenticateToken, async (req, re
 
 try {
     const newSound = await Sound.create({
-        userId: req.user.id, // Assuming you have the user info in the req object
-        categoryId: 'Test', // PLACEHOLDER LOL HAHA XD :3
+        userId: req.session.userinfo.id, // Assuming you have the user info in the req object
+        categoryId: 4, // PLACEHOLDER LOL HAHA XD :3
         soundFilePath: req.file.path,
         wordOrPhrase: 'test' // PLACEHOLDER LOL HAHA XD :3
     });

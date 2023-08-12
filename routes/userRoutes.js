@@ -68,6 +68,7 @@ router.post('/login', async (req, res) => {
         // If authenticated:
         req.session.username = user.name;  // Storing username in session
         req.session.token = jwt.sign({name: user.name}, process.env.SECRET_KEY, { expiresIn: '1800s' });
+        req.session.userinfo = {name: user.name, email: user.email, id: user.id};
         console.log(req.session);
         console.log("User", user.name, "logged in successfully!"); // Diagnostic log
         res.json({ success: true, message: 'Login successful' });
