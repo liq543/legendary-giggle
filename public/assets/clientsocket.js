@@ -7,12 +7,20 @@ function displayRoomCodeMessage(roomCode) {
         existingMessage.remove();
     }
 
-    // Create a new message element and append it to the body
+    // Create a new message element
     const messageElement = document.createElement("p");
     messageElement.id = "roomCodeMessage"; // Assign an id for future reference
     messageElement.textContent = `Room created ${roomCode}. Please join it now to play`;
-    document.body.appendChild(messageElement);
+
+    // append to center-container
+    //const centerContainer = document.getElementById("center-container");
+    //centerContainer.appendChild(messageElement);
+
+    // append to main-container
+    const mainContainer = document.querySelector(".main-container");
+    mainContainer.appendChild(messageElement);
 }
+
 // Function to create a room
 function createRoom() {
     socket.emit('createRoom');
