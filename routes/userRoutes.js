@@ -1,8 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');  // Adjust the path to your User model
-
+const jwt = require('jsonwebtoken');
 const router = express.Router();
+require('crypto').randomBytes(64).toString('hex')
 
 // GET route for the login page
 router.get('/login', (req, res) => {
@@ -22,6 +23,10 @@ router.post('/register', async (req, res) => {
         console.log("Attempting registration with data:", req.body); // Diagnostic log for incoming registration data
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const emailRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(req.body.email)){
+            return res.status(400).json({sucess: false, message: 'Invalid email format'});
+        }
         const newUser = {
             name: req.body.name,
             email: req.body.email,
@@ -62,9 +67,11 @@ router.post('/login', async (req, res) => {
 
         // If authenticated:
         req.session.username = user.name;  // Storing username in session
+        req.session.token = jwt.sign({name: user.name}, process.env.SECRET_KEY, { expiresIn: '1800s' });
+        req.session.userinfo = {name: user.name, email: user.email, id: user.id};
+        console.log(req.session);
         console.log("User", user.name, "logged in successfully!"); // Diagnostic log
         res.json({ success: true, message: 'Login successful' });
-
     } catch (error) {
         console.error("Error during login:", error); // Diagnostic log
         res.status(500).json({ success: false, message: 'Login failed' });

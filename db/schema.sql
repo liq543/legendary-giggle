@@ -1,5 +1,5 @@
 -- Create the database
-CREATE DATABASE sound_charades;
+CREATE DATABASE heroku_292e5a7974a743e;
 
 -- Use the database
-USE sound_charades;
+USE heroku_292e5a7974a743e;
