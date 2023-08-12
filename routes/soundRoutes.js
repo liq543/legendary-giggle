@@ -23,8 +23,36 @@ router.post("/upload", upload.single("audio"), async (req, res) => {
 
     console.log("File saved to:", req.file.path);  // This will print the path to the saved file.
 
+    // Save sound metadta to the database
+
+try {
+    const newSound = await Sound.create({
+        userId: req.user.id, // Assuming you have the user info in the req object
+        categoryId: 'Test', // PLACEHOLDER LOL HAHA XD :3
+        soundFilePath: req.file.path,
+        wordOrPhrase: 'test' // PLACEHOLDER LOL HAHA XD :3
+    });
     res.json({ success: true, filepath: req.file.path });
+} catch (err) {
+    console.log("Error saving sound to the database:", err);
+    res.status(500).json({ success: false, message: "Error saving sound to the database" });
+}
 });
+
+// Route to get sound by ID
+router.get("/sound/:id", async (req, res) => {
+    try {
+        const sound = await Sound.findByPk(req.params.id);
+        if (!sound) {
+            return res.status(404).json({ message: "Sound not found" });
+        }
+        res.json(sound);
+    } catch (error) {
+        console.error("Error retrieving sound:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 
 router.get('/soundtest', (req, res) => {
     res.render('soundpage');
