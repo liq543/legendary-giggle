@@ -58,6 +58,7 @@ socket.on('joinedRoom', (roomCode) => {
     waitingMessage.textContent = "Waiting for the other player to join...";
     const mainContainer = document.querySelector(".main-container");
     mainContainer.appendChild(waitingMessage);
+    mainContainer.style.marginTop = "400px";
 });
 
 socket.on('playersReady', () => {
