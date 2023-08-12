@@ -2,8 +2,8 @@ const { Guess } = require('../models');
 
 const guessData = [
     {
-        userId: 2,
-        soundId: 1,
+        userId: 4,
+        soundId: 4,
         guess: 'elephant',
         isCorrect: true
     },
