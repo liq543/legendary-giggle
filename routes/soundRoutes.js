@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
-
+const Sound = require('../models/Sound');
+const { authenticateToken } = require('./routehelper'); // Adjust the path to your userRoutes.js file
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -16,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Route for uploading audio files
-router.post("/upload", upload.single("audio"), async (req, res) => {
+router.post("/upload", upload.single("audio"), authenticateToken, async (req, res) => {
     if (!req.file) {
         return res.json({ success: false, message: "No file received" });
     }
@@ -40,7 +41,7 @@ try {
 });
 
 // Route to get sound by ID
-router.get("/sound/:id", async (req, res) => {
+router.get("/sound/:id", authenticateToken, async (req, res) => {
     try {
         const sound = await Sound.findByPk(req.params.id);
         if (!sound) {
@@ -54,7 +55,7 @@ router.get("/sound/:id", async (req, res) => {
 });
 
 
-router.get('/soundtest', (req, res) => {
+router.get('/soundtest', authenticateToken, (req, res) => {
     res.render('soundpage');
 });
 

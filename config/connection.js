@@ -5,7 +5,7 @@ let sequelize;
 let dev = 1;
 // If you have the DATABASE_URL env variable (Heroku + ClearDB), use that
 if (dev === 1) {
-  sequelize = new Sequelize(process.env.DB_DATABASE_URL, {
+  sequelize = new Sequelize(process.env.DB_CONNECTION_STRING,{
     dialect: 'mysql',
     logging: true, // Optional: Set to false if you dont want to see logs
   });

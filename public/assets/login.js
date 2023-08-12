@@ -13,7 +13,7 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
   const data = await response.json();
 
   if (data.success) {
-      window.location.href = '/dashboard';  // Redirect to dashboard or any other page
+      window.location.href = '/soundtest';  // Redirect to dashboard or any other page
   } else {
       alert(data.message);
   }
