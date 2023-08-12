@@ -10,7 +10,7 @@ function displayRoomCodeMessage(roomCode) {
     }
 
     // Create a new message element
-    messageElement.textContent = `Room created ${roomCode}. Please join it now to play`;
+    messageElement.textContent = `Room created ${roomCode} Please join it now to play`;
 
     // append to center-container
     //const centerContainer = document.getElementById("center-container");
