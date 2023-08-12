@@ -1,5 +1,7 @@
 const socket = io.connect(window.location.origin);
 let currentRoomCode = null;
+const messageElement = document.createElement("p");
+messageElement.id = "roomCodeMessage"; // Assign an id for future reference
 function displayRoomCodeMessage(roomCode) {
     // Check for and remove the existing message element if it exists
     const existingMessage = document.getElementById("roomCodeMessage");
@@ -8,8 +10,6 @@ function displayRoomCodeMessage(roomCode) {
     }
 
     // Create a new message element
-    const messageElement = document.createElement("p");
-    messageElement.id = "roomCodeMessage"; // Assign an id for future reference
     messageElement.textContent = `Room created ${roomCode}. Please join it now to play`;
 
     // append to center-container
@@ -45,7 +45,9 @@ socket.on('roomCreated', (roomCode) => {
 
 socket.on('joinedRoom', (roomCode) => {
     console.log('Joined Room:', roomCode);
-
+    if (roomCodeMessage) {
+        roomCodeMessage.remove();
+    }
     const centerContainer = document.getElementById("center-container");
     if (centerContainer) {
         centerContainer.remove();
