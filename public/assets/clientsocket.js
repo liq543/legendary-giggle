@@ -1,5 +1,7 @@
 const socket = io.connect(window.location.origin);
 let currentRoomCode = null;
+const messageElement = document.createElement("p");
+messageElement.id = "roomCodeMessage"; // Assign an id for future reference
 function displayRoomCodeMessage(roomCode) {
     // Check for and remove the existing message element if it exists
     const existingMessage = document.getElementById("roomCodeMessage");
@@ -7,12 +9,18 @@ function displayRoomCodeMessage(roomCode) {
         existingMessage.remove();
     }
 
-    // Create a new message element and append it to the body
-    const messageElement = document.createElement("p");
-    messageElement.id = "roomCodeMessage"; // Assign an id for future reference
-    messageElement.textContent = `Room created ${roomCode}. Please join it now to play`;
-    document.body.appendChild(messageElement);
+    // Create a new message element
+    messageElement.textContent = `Room created ${roomCode} Please join it now to play`;
+
+    // append to center-container
+    //const centerContainer = document.getElementById("center-container");
+    //centerContainer.appendChild(messageElement);
+
+    // append to main-container
+    const mainContainer = document.querySelector(".main-container");
+    mainContainer.appendChild(messageElement);
 }
+
 // Function to create a room
 function createRoom() {
     socket.emit('createRoom');
@@ -37,12 +45,28 @@ socket.on('roomCreated', (roomCode) => {
 
 socket.on('joinedRoom', (roomCode) => {
     console.log('Joined Room:', roomCode);
-    // Update your UI accordingly
+    if (roomCodeMessage) {
+        roomCodeMessage.remove();
+    }
+    const centerContainer = document.getElementById("center-container");
+    if (centerContainer) {
+        centerContainer.remove();
+    }
+
+    const waitingMessage = document.createElement("p");
+    waitingMessage.id = "waitingMessage";
+    waitingMessage.textContent = "Waiting for the other player to join...";
+    const mainContainer = document.querySelector(".main-container");
+    mainContainer.appendChild(waitingMessage);
+    mainContainer.style.marginTop = "400px";
 });
 
 socket.on('playersReady', () => {
     console.log('Both players are ready!');
-    // Display the 'OK' button
+    const waitingMessage = document.getElementById("waitingMessage");
+    if (waitingMessage) {
+        waitingMessage.textContent = "Both players are ready!";
+    }
 });
 
 socket.on('otherUserPressed', () => {
