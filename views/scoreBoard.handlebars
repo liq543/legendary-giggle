@@ -1,41 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-   <link rel="stylesheet" href="/assets/style.css">
-   <title>Scoreboard</title>
-</head>
-<body>
-    <h1>Scoreboard</h1>
-  <ul id="score-list"></ul>
-  <h2><span id="p1-finalScore"> Player one:()</span> to <span id="p2-finalScore">Player 2: ()</span></h2>
-    <button onclick="location.href='URL'"> Play Again </button>
+    <script id="score-template" type="text/x-handlebars-template">
+        <h2>Final Score</h2>
+        <p> {{user1Id}}: {{player1Score}}</p>
+        <p> {{user2Id}}: {{player2Score}}</p>
+        <button href="/views/dashboard.handlebars">Play Again</button>
+    </script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var contentDiv = document.getElementById("content");
+            var finalScoreDiv = document.getElementById("finalScore");
+            var scoreTemplateSource = document.getElementById("score-template");
+            var scoreTemplate = Handlebars.compile(scoreTemplateSource);
 
-  <script id="score-template" type="text/x-handlebars-template">
-    {{#each scores}}
-    <li>{{name}} - {{score}}</li>
-    {{/each}}
-  </script>
+                var data = {
+                    player1Score: player1Score,
+                    player2Score: player2Score
+                };
 
-  <script>
-    const scoresData = {
-      scores: [
-        { name: "Player 1", score: $p1Score },
-        { name: "Player 2", score: $p2Score },
-      ],
-    };
-
-    const scoreTemplate = document.getElementById("score-template").innerHTML;
-    const compiledTemplate = Handlebars.compile(scoreTemplate);
-    const scoreList = document.getElementById("score-list");
-    const document.getElementById("p1-finalScore")
-    const document.getElementById("p2-finalScore")
-
-    scoreList.innerHTML = compiledTemplate(scoresData);
-    <script src="/scoreRoutes.js"></script>
+                var renderedHtml = scoreTemplate(data);
+                finalScoreDiv.innerHTML = renderedHtml;
+            });
     </script>
 </body>
 </html>

@@ -1,0 +1,27 @@
+           <script id="letsGetStarted" type="text/x-handlebars-template">
+           <h1>Lets Get Started!</h1>
+    <button id="redirectButton">START</button>
+           </script>
+
+<script id="Game" type="text/x-handlebars-template">
+    <p> Game content.</p>
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var contentDiv = document.getElementById("content");
+        var template1Source = document.getElementById("letsGetStarted").innerHTML;
+        var template2Source = document.getElementById("Game").innerHTML;
+
+        var letsGetStarted = Handlebars.compile(letsGetStartedSource);
+        var Game = Handlebars.compile(GameSource);
+
+        contentDiv.innerHTML = letsGetStarted();
+
+        // Attach event listener to the button
+        var redirectButton = document.getElementById("redirectButton");
+        redirectButton.addEventListener("click", function () {
+            //  redirection
+            contentDiv.innerHTML = Game();
+        });
+    });
+</script>
