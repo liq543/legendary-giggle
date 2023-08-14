@@ -1,6 +1,8 @@
 const socket = io.connect(window.location.origin);
 let currentRoomCode = null;
 const messageElement = document.createElement("p");
+const loaderContainer = document.querySelector(".loader-container");
+const mainContainer = document.querySelector(".main-container");
 messageElement.id = "roomCodeMessage"; // Assign an id for future reference
 function displayRoomCodeMessage(roomCode) {
     // Check for and remove the existing message element if it exists
@@ -17,7 +19,6 @@ function displayRoomCodeMessage(roomCode) {
     //centerContainer.appendChild(messageElement);
 
     // append to main-container
-    const mainContainer = document.querySelector(".main-container");
     mainContainer.appendChild(messageElement);
 }
 
@@ -45,7 +46,10 @@ socket.on('roomCreated', (roomCode) => {
 
 socket.on('joinedRoom', (roomCode) => {
     console.log('Joined Room:', roomCode);
-    if (roomCodeMessage) {
+    mainContainer.style.display = "none";
+    loaderContainer.style.display = "flex";
+    // old code before using handlebars partials
+    /*     if (roomCodeMessage) {
         roomCodeMessage.remove();
     }
     const centerContainer = document.getElementById("center-container");
@@ -58,7 +62,7 @@ socket.on('joinedRoom', (roomCode) => {
     waitingMessage.textContent = "Waiting for the other player to join...";
     const mainContainer = document.querySelector(".main-container");
     mainContainer.appendChild(waitingMessage);
-    mainContainer.style.marginTop = "400px";
+    mainContainer.style.marginTop = "400px"; */
 });
 
 socket.on('playersReady', () => {

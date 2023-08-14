@@ -2,13 +2,34 @@
     margin:0;
     padding:0;
 }
-body{
+/* body{
     display:flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: pink;
 }
+*/
+
+.loader-container {
+    display: flex;
+    flex-direction: column; /* Stack child elements vertically */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* adjust as needed */
+}
+
+.waiting-text {
+    margin-top: 40px; /* Adjust this value for desired spacing between loader and text */
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
 .loader{
     position: relative;
     width:300px;
