@@ -29,6 +29,9 @@ function initializeSocket(server) {
             const roomCode = Math.random().toString(36).substring(7).toUpperCase(); // Generate random room code
             rooms[roomCode] = { host: socket.id, guest: null };
             socket.emit('roomCreated', roomCode); // Notify the host about the room creation
+
+            // Assign the role of "host" to the socket / user who created the room
+            socket.emit('assignRole', 'host');
         });
 
         socket.on('joinRoom', (roomCode) => {

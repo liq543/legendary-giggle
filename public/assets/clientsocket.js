@@ -37,6 +37,17 @@ function pressButton(roomCode) {
     socket.emit('pressButton', roomCode);
 }
 
+socket.on('assinRole', (role) => {
+    console.log('Role assigned:', role);
+    sessionStorage.setItem('userRole', role);
+
+    if (role === 'host') {
+        renderHostPage();
+    } else if (role === 'guest') {
+        renderGuestPage();
+    }
+});
+
 // Listeners
 socket.on('roomCreated', (roomCode) => {
     console.log('Room Created:', roomCode);
@@ -67,10 +78,7 @@ socket.on('joinedRoom', (roomCode) => {
 
 socket.on('playersReady', () => {
     console.log('Both players are ready!');
-    const waitingMessage = document.getElementById("waitingMessage");
-    if (waitingMessage) {
-        waitingMessage.textContent = "Both players are ready!";
-    }
+    loaderContainer.style.display = "none";
 });
 
 socket.on('otherUserPressed', () => {

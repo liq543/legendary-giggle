@@ -3,6 +3,7 @@ const multer = require('multer');
 const Sound = require('../models/Sound');
 const { authenticateToken } = require('./routehelper'); 
 const router = express.Router();
+const Word = require('../models/Word');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -15,6 +16,20 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+// Middleware to fetch word from the database and save to session
+router.use(async (req, res, next) => {
+    try {
+        const wordEntry = await Word.findByPk(req.session.wordId);
+        if (wordEntry) {
+            req.session.word = wordEntry.word;
+        }
+        next();
+    } catch (error) {
+        console.error("Error fetching word using Sequelize:", error);
+        next(error);
+    }
+});
 
 // Route for uploading audio files
 router.post("/upload", upload.single("audio"), authenticateToken, async (req, res) => {
@@ -31,7 +46,7 @@ try {
         userId: req.session.userinfo.id, // Assuming you have the user info in the req object
         categoryId: 4, // PLACEHOLDER LOL HAHA XD :3
         soundFilePath: req.file.path,
-        wordOrPhrase: 'test' // PLACEHOLDER LOL HAHA XD :3
+        wordOrPhrase: req.session.word || 'default word'
     });
     res.json({ success: true, filepath: req.file.path });
 } catch (err) {
