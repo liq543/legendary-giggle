@@ -36,8 +36,8 @@ function joinRoom(roomCode) {
 function pressButton(roomCode) {
     socket.emit('pressButton', roomCode);
 }
-
-socket.on('assinRole', (role) => {
+//assign was assin?? i assumed it was error 
+socket.on('assignRole', (role) => {
     console.log('Role assigned:', role);
     sessionStorage.setItem('userRole', role);
 
