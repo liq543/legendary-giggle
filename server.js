@@ -8,6 +8,7 @@ const { initializeSocket } = require('./serverjs/socketLogic');  // Import socke
 const http = require('http');  // Import the http module
 const fs = require('fs');  // Import the fs module
 const path = require('path');  // Import the path module
+const { authenticateToken } = require('./routes/routehelper');
 require('dotenv').config();
 
 const secretKey = process.env.SECRET_KEY;
@@ -39,7 +40,7 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 
-app.get('/', (req, res) => {
+app.get('/', authenticateToken, async (req, res) => {
     res.render('dashboard');
 });
 

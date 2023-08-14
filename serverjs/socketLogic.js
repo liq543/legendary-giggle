@@ -13,7 +13,7 @@ function initializeSocket(server) {
     const rooms = {};
 
     io.on('connection', (socket) => {
-        console.log('User connected:', socket.id);
+        console.log('User connected to socket: ', socket.id);
 
         socket.on('createRoom', () => {
             // If this socket was previously the host of another room, delete that room

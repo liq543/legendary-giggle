@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 function authenticateToken(req, res, next) {
-    console.log('dis oned getting called')
     console.log(`token: ${req.session.token}`)
     console.log(req.session.userinfo)
 
