@@ -40,7 +40,7 @@ app.set('view engine', 'handlebars');
 
 
 app.get('/', (req, res) => {
-    res.render('login');
+    res.render('dashboard');
 });
 
 const PORT = process.env.PORT || 3000;
