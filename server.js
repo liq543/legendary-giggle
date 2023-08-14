@@ -6,6 +6,8 @@ const gameRoutes = require('./routes/gameRoutes');
 const soundRoutes = require('./routes/soundRoutes');
 const { initializeSocket } = require('./serverjs/socketLogic');  // Import socket logic
 const http = require('http');  // Import the http module
+const fs = require('fs');  // Import the fs module
+const path = require('path');  // Import the path module
 require('dotenv').config();
 
 const secretKey = process.env.SECRET_KEY;
@@ -28,9 +30,14 @@ app.use('/sockettest', (req, res) => {
     res.render('sockettest');
 });
 
-// Use exphbs to setup the handlebars engine
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
+// Set default layout to main.handlebars and add partials
+const hbs = exphbs.create({
+    partialsDir: 'views/partials' 
+});
+
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
 
 app.get('/', (req, res) => {
     res.render('login');
