@@ -8,7 +8,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #cf8e6d; 
+  background-color: pink; 
   margin: 0; 
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 .col-md-6 {
-  background-color: #dac377;
+  background-color: rgb(168, 66, 83);
   padding: 200px;
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
