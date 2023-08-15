@@ -21,6 +21,8 @@ function displayRoomCodeMessage(roomCode) {
     mainContainer.appendChild(messageElement);
 }
 
+
+
 // Function to create a room
 function createRoom() {
     socket.emit('createRoom');
@@ -48,6 +50,16 @@ socket.on('roomCreated', (roomCode) => {
     displayRoomCodeMessage(roomCode); // Display the message on the page
 });
 
+socket.on('roundUpdate', (roundNumber, randomWord) => {
+    console.log('Round number:', roundNumber, 'Word for this round:', randomWord.word);
+
+    const gameImage = document.getElementById('gameImage');
+    gameImage.src = randomWord.image;
+
+    const gameWorldElement = document.getElementById('gameWord');
+    gameWorldElement.textContent = randomWord.word;
+});
+
 socket.on('joinedRoom', (roomCode) => {
     console.log('Joined Room:', roomCode);
     mainContainer.style.display = "none";
@@ -57,6 +69,7 @@ socket.on('joinedRoom', (roomCode) => {
 socket.on('playersReady', () => {
     console.log('Both players are ready!');
     loaderContainer.style.display = "none";
+    socket.emit('startNewRound', currentRoomCode)
     if (sessionStorage.getItem('userRole') === 'host') {
         sounderView.style.display = "block";
         guesserView.style.display = "none";

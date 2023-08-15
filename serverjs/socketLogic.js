@@ -1,6 +1,21 @@
 const socketIo = require('socket.io');
-
+const Word = require('../models/Word');
+const { Op } = require('sequelize');
+const sequelize = require('sequelize');
 let io;
+
+async function getRandomWord(excludedWords) {
+    let randomWord = await Word.findOne({
+        where: {
+            id: {
+                [Op.notIn]: excludedWords // Op.notIn ensures the id is not in the excluded list
+            }
+        },
+        order: sequelize.literal('RAND()') // Order by random to get a random word
+    });
+    
+    return randomWord;
+}
 
 function initializeSocket(server) {
     io = socketIo(server, {
@@ -27,7 +42,7 @@ function initializeSocket(server) {
             }
             
             const roomCode = Math.random().toString(36).substring(7).toUpperCase(); // Generate random room code
-            rooms[roomCode] = { host: null, guest: null }; // Do not set the host when the room is created
+            rooms[roomCode] = { host: null, guest: null, round: 0, selectedWords: [] }; // Do not set the host when the room is created
             socket.emit('roomCreated', roomCode); // Notify the user about the room creation
         });
         
@@ -62,8 +77,22 @@ function initializeSocket(server) {
             socket.to(roomCode).emit('otherUserPressed');
             console.log(`sending ${roomCode} to other user`); // Corrected string interpolation
         });
-    });
+        socket.on('startNewRound', async (roomCode) => {
+            if (rooms[roomCode]) {
+                rooms[roomCode].round++;
+                let randomWord = await getRandomWord(rooms[roomCode].selectedWords);
+                console.log('received word from server', randomWord);
 
+                if (randomWord) {
+                    rooms[roomCode].selectedWords.push(randomWord.id);
+                    io.to(roomCode).emit('roundUpdate', rooms[roomCode].round, randomWord);
+                } else {
+                    // Handle if no words left or something idk
+                    console.log('idk how u triggered this but u did')
+                }
+            }
+        });
+    });
 }
 
 module.exports = {
