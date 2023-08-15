@@ -88,3 +88,5 @@ socket.on('error', (message) => {
     console.error(message);
     // Handle the error
 });
+
+// create socket.on for the sounds
