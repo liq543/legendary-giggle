@@ -3,7 +3,10 @@ let currentRoomCode = null;
 const messageElement = document.createElement("p");
 const loaderContainer = document.querySelector(".loader-container");
 const mainContainer = document.querySelector(".main-container");
+const sounderView = document.getElementById('sounderView');
+const guesserView = document.getElementById('guesserView');
 messageElement.id = "roomCodeMessage"; // Assign an id for future reference
+
 function displayRoomCodeMessage(roomCode) {
     // Check for and remove the existing message element if it exists
     const existingMessage = document.getElementById("roomCodeMessage");
@@ -13,10 +16,6 @@ function displayRoomCodeMessage(roomCode) {
 
     // Create a new message element
     messageElement.textContent = `Room created ${roomCode} Please join it now to play`;
-
-    // append to center-container
-    //const centerContainer = document.getElementById("center-container");
-    //centerContainer.appendChild(messageElement);
 
     // append to main-container
     mainContainer.appendChild(messageElement);
@@ -40,12 +39,6 @@ function pressButton(roomCode) {
 socket.on('assignRole', (role) => {
     console.log('Role assigned:', role);
     sessionStorage.setItem('userRole', role);
-
-    if (role === 'host') {
-        renderHostPage();
-    } else if (role === 'guest') {
-        renderGuestPage();
-    }
 });
 
 // Listeners
@@ -59,26 +52,18 @@ socket.on('joinedRoom', (roomCode) => {
     console.log('Joined Room:', roomCode);
     mainContainer.style.display = "none";
     loaderContainer.style.display = "flex";
-    // old code before using handlebars partials
-    /*     if (roomCodeMessage) {
-        roomCodeMessage.remove();
-    }
-    const centerContainer = document.getElementById("center-container");
-    if (centerContainer) {
-        centerContainer.remove();
-    }
-
-    const waitingMessage = document.createElement("p");
-    waitingMessage.id = "waitingMessage";
-    waitingMessage.textContent = "Waiting for the other player to join...";
-    const mainContainer = document.querySelector(".main-container");
-    mainContainer.appendChild(waitingMessage);
-    mainContainer.style.marginTop = "400px"; */
 });
 
 socket.on('playersReady', () => {
     console.log('Both players are ready!');
     loaderContainer.style.display = "none";
+    if (sessionStorage.getItem('userRole') === 'host') {
+        sounderView.style.display = "block";
+        guesserView.style.display = "none";
+    } else if (sessionStorage.getItem('userRole') === 'guest') {
+        sounderView.style.display = "none";
+        guesserView.style.display = "block";
+    }
 });
 
 socket.on('otherUserPressed', () => {
