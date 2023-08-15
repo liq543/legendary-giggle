@@ -14,11 +14,9 @@
 .logo{
     width:120px;
     margin-top: 8px;
-    float: none;
 }
 nav .logo{
     display: none;
-    float: none;
 }
 header{
     width: 80%;
