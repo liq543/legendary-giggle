@@ -90,3 +90,7 @@ socket.on('error', (message) => {
 });
 
 // create socket.on for the sounds
+socket.on('sendSound', (roomCode, soundUrl) =>{
+    io.to(roomCode).emit('playSound', soundUrl);
+    console.log(`Sending sound to ${roomCode}`);
+});
