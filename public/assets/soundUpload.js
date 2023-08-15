@@ -66,3 +66,5 @@ navigator.mediaDevices.getUserMedia({ audio: true })
 
     })
     .catch(error => console.log("Error accessing audio device.", error));
+
+    

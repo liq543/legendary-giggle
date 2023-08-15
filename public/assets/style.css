@@ -6,16 +6,19 @@
     list-style: none;
     text-decoration: none;
 }
-body{
+
+/*body{
     background:#f7c8c8;
 }
 /* this css if for the nav bar and to make the nav bar responsive */
 .logo{
     width:120px;
     margin-top: 8px;
+    float: none;
 }
 nav .logo{
     display: none;
+    float: none;
 }
 header{
     width: 80%;
@@ -27,9 +30,11 @@ header{
     padding: 0 40px;
     border-radius: 0 0 10px 10px;
     margin: 0 auto;
+    float: none;
 }
 nav ul{
     display: flex;
+    float: none;
 }
 nav ul li a{
     color: black;
@@ -40,6 +45,7 @@ nav ul li a{
     transition: 0.2s;
     border-radius: 30px;
     text-decoration: none;
+    float: none;
 }
 nav ul li a:hover{
     background: #ea1538;
@@ -102,9 +108,13 @@ nav ul li a:hover{
         display: block;
     }
 }
-/* this is in order to render the canvas into the screen */
-canvas{
-    background: #eee;
-    height: 500px;
-    width: 500px;
+body{
+    background: #000;
+    min-height: 100vh;
+}
+.container{
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    animation: animate 4s linear infinite;
 }

@@ -1,6 +1,7 @@
 let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
 let currentPos = 0;
 
+
 document.addEventListener('keydown', function(e) {
     if (e.code === konamiCode[currentPos]) {
         currentPos++;
