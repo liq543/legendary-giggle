@@ -8,7 +8,6 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 150px;
 }
 
 .maindiv {
@@ -16,11 +15,10 @@ body, html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
-    box-sizing: border-box;
+    height: 80vh;
+    box-sizing: border-box; 
 }
-
-.main-container {
+.main-container{
     text-align: center;
     padding-bottom: 10px;
 }
