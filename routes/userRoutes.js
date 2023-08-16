@@ -15,6 +15,9 @@ router.get('/register', (req, res) => {
     res.render('register');  // Renders the register.handlebars view
 });
 
+router.get('/aboutgame', (req, res) => {
+    res.render('aboutgame');  // Renders the register.handlebars view
+});
 
 
 // Registration Route
