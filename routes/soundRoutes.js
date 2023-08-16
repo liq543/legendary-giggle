@@ -4,6 +4,8 @@ const Sound = require('../models/Sound');
 const { authenticateToken } = require('./routehelper'); 
 const router = express.Router();
 const Word = require('../models/Word');
+const { io, rooms } = require('../serverjs/socketLogic');
+const ioInstance = io();
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -33,6 +35,14 @@ router.use(async (req, res, next) => {
 
 // Route for uploading audio files
 router.post("/upload", upload.single("audio"), authenticateToken, async (req, res) => {
+    let socketId = req.session.socketId;
+    let currentRoomCode = null;
+    for (let roomCode in rooms) {
+        if (rooms[roomCode].host === socketId || rooms[roomCode].guest === socketId) {
+            currentRoomCode = roomCode;
+            break;
+        }
+    }
     if (!req.file) {
         return res.json({ success: false, message: "No file received" });
     }
@@ -48,7 +58,6 @@ try {
         soundFilePath: req.file.path,
         wordOrPhrase: req.session.word || 'default word'
     });
-    socket.to(currentRoomCode).emit('soundUploaded', req.file.path);
     res.json({ success: true, filepath: req.file.path });
 } catch (err) {
     console.log("Error saving sound to the database:", err);

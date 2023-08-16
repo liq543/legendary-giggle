@@ -22,7 +22,6 @@ function displayRoomCodeMessage(roomCode) {
 }
 
 
-
 // Function to create a room
 function createRoom() {
     socket.emit('createRoom');
