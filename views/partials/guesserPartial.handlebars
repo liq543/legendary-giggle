@@ -1,8 +1,7 @@
-<link rel="stylesheet" href="css/guesser.css">
 <div id="guesserView" style="display:none">
     <!-- Audio Player -->
     <audio id="audioPlayback" controls="controls" preload="none">
-        <source id="audioSource" src="" type="audio/mp3">
+        <source id="audioSource" src="" type="audio/wav">
         Your browser does not support the audio tag.
     </audio>
     <button id="playSound">Play Sound</button>
@@ -10,4 +9,7 @@
     <!-- Guess Input -->
     <input type="text" id="userGuess" placeholder="Enter your guess here...">
     <button id="submitGuess">Submit Guess</button>
+
+    <!-- Score Display -->
+    <div>Score: <span id="guesserScore">0</span></div>
 </div>

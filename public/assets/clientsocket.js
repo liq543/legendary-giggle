@@ -70,6 +70,24 @@ socket.on('roundUpdate', (roundNumber, randomWord) => {
 
     const gameWorldElement = document.getElementById('gameWord');
     gameWorldElement.textContent = randomWord.word;
+
+    currentWord = randomWord.word;
+});
+
+document.getElementById('playSound').addEventListener('click', function() {
+    const audioPlayback = document.getElementById('audioPlayback');
+    audioPlayback.play();
+});
+
+document.getElementById('submitGuess').addEventListener('click', function() {
+    const userGuess = document.getElementById('userGuess').value;
+    if (userGuess === currentWord) {
+        guesserScore++;
+        document.getElementById('guesserScore').textContent = guesserScore;
+        alert("Correct guess!");
+    } else {
+        alert("Wrong guess. Try again!");
+    }
 });
 
 socket.on('joinedRoom', (roomCode) => {
@@ -101,8 +119,12 @@ socket.on('error', (message) => {
     // Handle the error
 });
 
-socket.on('soundUploaded', (filePath => {
+socket.on('soundUploaded', (filePath) => {
     console.log('Sound file uploaded at:', filePath);
+    const audioSource = document.getElementById('audioSource');
+    audioSource.src = filePath;
+
+    // Force the audio element to load the new source.
     const audioPlayback = document.getElementById('audioPlayback');
-    audioPlayback.src = filePath;
-}));
+    audioPlayback.load();
+});
