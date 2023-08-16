@@ -11,6 +11,9 @@
 #gameImage {
     max-width: 100%; /* Ensures image is responsive */
     height: auto;
+    /* this is a test if it works leave max height and width */
+    max-height: 200px;
+    max-width: 200px;
     margin-bottom: 15px;
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.1); /* Optional shadow */
