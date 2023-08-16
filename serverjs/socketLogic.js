@@ -1,8 +1,8 @@
-const express = require('express');
 const socketIo = require('socket.io');
 const Word = require('../models/Word');
 const { Op } = require('sequelize');
 const sequelize = require('sequelize');
+const Sound = require('../models/Sound')
 
 let io;
 const rooms = {};
@@ -76,6 +76,25 @@ function initializeSocket(server, sessionMiddleware) {
         socket.on('pressButton', (roomCode) => {
             socket.to(roomCode).emit('otherUserPressed');
             console.log(`sending ${roomCode} to other user`); // Corrected string interpolation
+        });
+
+        socket.on('pressedSave', async (roomCode) => {
+            // Assuming that you've already set up the necessary imports and sequelize instance
+        
+            try {
+                const recentSound = await Sound.findOne({
+                    order: [['id', 'DESC']],
+                    attributes: ['soundFilePath']
+                });
+        
+                if (recentSound) {
+                    const soundFilePath = recentSound.soundFilePath;
+                    console.log('PLEASE WORK DEAR LORD PLEASE WORK ' + soundFilePath);
+                } else {
+                }
+            } catch (error) {
+                console.error('Error fetching recent sound:', error);
+            }
         });
 
         socket.on('startNewRound', async (roomCode) => {

@@ -36,8 +36,16 @@ function joinRoom(roomCode) {
 function pressButton(roomCode) {
     socket.emit('startNewRound', roomCode);
 }
-
 function pressedSave(roomCode) {
+    console.log('user pressed save LOCAL TEST - Before Timeout');
+    setTimeout(() => {
+        console.log('Inside setTimeout - About to run worstcoder');
+        worstcoder(roomCode);
+    }, 2000);
+}
+
+function worstcoder(roomCode) {
+    console.log('Inside worstcoder - Emitting pressedSave event');
     socket.emit('pressedSave', roomCode);
 }
 

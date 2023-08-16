@@ -58,11 +58,11 @@ navigator.mediaDevices.getUserMedia({ audio: true })
                 body: formData
             }).then(response => response.json()).then(data => {
                 if (data.success) {
-                    alert("Uploaded successfully!");
+                    console.log('upload success')
                     const uploadedSoundUrl = data.filepath;
                     socket.emit('sendSound', currentRoomCode, uploadedSoundUrl);
                 } else {
-                    alert("Upload failed!");
+                    console.log('upload failed')
                 }
             });
         });
