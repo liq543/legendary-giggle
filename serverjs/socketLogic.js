@@ -77,7 +77,7 @@ function initializeSocket(server, sessionMiddleware) {
             socket.to(roomCode).emit('otherUserPressed');
             console.log(`sending ${roomCode} to other user`); // Corrected string interpolation
         });
-
+        let soundFilePath = '';
         socket.on('pressedSave', async (roomCode) => {
             // Assuming that you've already set up the necessary imports and sequelize instance
         
@@ -88,7 +88,7 @@ function initializeSocket(server, sessionMiddleware) {
                 });
         
                 if (recentSound) {
-                    const soundFilePath = recentSound.soundFilePath;
+                    soundFilePath = recentSound.soundFilePath;
                     console.log('PLEASE WORK DEAR LORD PLEASE WORK ' + soundFilePath);
                 } else {
                 }
