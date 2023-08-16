@@ -16,7 +16,7 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/aboutgame', (req, res) => {
-    res.render('aboutgame');  // Renders the register.handlebars view
+    res.render('aboutGame');  // Renders the register.handlebars view
 });
 
 
