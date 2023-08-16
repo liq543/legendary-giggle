@@ -35,7 +35,7 @@ function joinRoom(roomCode) {
 
 // Function to notify other user
 function pressButton(roomCode) {
-    socket.emit('pressButton', roomCode);
+    socket.emit('startNewRound', roomCode);
 }
 //assign was assin?? i assumed it was error 
 socket.on('assignRole', (role) => {

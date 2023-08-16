@@ -6,6 +6,7 @@ const stopRecordBtn = document.getElementById("stopRecord");
 const redoBtn = document.getElementById("redo");
 const saveBtn = document.getElementById("save");
 
+
 navigator.mediaDevices.getUserMedia({ audio: true })
     .then(stream => {
         mediaRecorder = new MediaRecorder(stream);
@@ -58,6 +59,8 @@ navigator.mediaDevices.getUserMedia({ audio: true })
             }).then(response => response.json()).then(data => {
                 if (data.success) {
                     alert("Uploaded successfully!");
+                    const uploadedSoundUrl = data.filepath;
+                    socket.emit('sendSound', currentRoomCode, uploadedSoundUrl);
                 } else {
                     alert("Upload failed!");
                 }
