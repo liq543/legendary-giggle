@@ -48,6 +48,7 @@ try {
         soundFilePath: req.file.path,
         wordOrPhrase: req.session.word || 'default word'
     });
+    socket.to(currentRoomCode).emit('soundUploaded', req.file.path);
     res.json({ success: true, filepath: req.file.path });
 } catch (err) {
     console.log("Error saving sound to the database:", err);

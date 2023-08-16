@@ -37,6 +37,11 @@ function joinRoom(roomCode) {
 function pressButton(roomCode) {
     socket.emit('startNewRound', roomCode);
 }
+
+function pressedSave(roomCode) {
+    socket.emit('pressedSave', roomCode);
+}
+
 //assign was assin?? i assumed it was error 
 socket.on('assignRole', (role) => {
     console.log('Role assigned:', role);
@@ -89,8 +94,8 @@ socket.on('error', (message) => {
     // Handle the error
 });
 
-// create socket.on for the sounds
-socket.on('sendSound', (roomCode, soundUrl) =>{
-    io.to(roomCode).emit('playSound', soundUrl);
-    console.log(`Sending sound to ${roomCode}`);
-});
+socket.on('soundUploaded', (filePath => {
+    console.log('Sound file uploaded at:', filePath);
+    const audioPlayback = document.getElementById('audioPlayback');
+    audioPlayback.src = filePath;
+}));
